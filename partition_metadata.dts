@@ -1,0 +1,73 @@
+/dts-v1/;
+
+/ {
+
+	schema_version {
+		major = <0x1>;
+		minor = <0x0>;
+	};
+
+	interfaces {
+
+		@0 {
+			interface_uuid = "8553f27d8b570dd93bf42563517edf20";
+		};
+	};
+
+	addressable_endpoints {
+
+		ep_aclk_hbm_00 {
+			reg = <0x0 0x1007000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "clkwiz";
+		};
+
+		ep_aclk_kernel_01 {
+			reg = <0x0 0x1004000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "clkwiz";
+		};
+
+		ep_freq_cnt_aclk_kernel_01 {
+			reg = <0x0 0x1006000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "freq_cnt";
+		};
+
+		ep_freq_cnt_aclk_hbm_00 {
+			reg = <0x0 0x1008000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "freq_cnt";
+		};
+
+		ep_gapping_demand_00 {
+			reg = <0x0 0x1001000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "ucs_gapping_demand";
+		};
+
+		ep_aclk_kernel_00 {
+			reg = <0x0 0x1003000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "clkwiz";
+		};
+
+		ep_freq_cnt_aclk_kernel_00 {
+			reg = <0x0 0x1005000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "freq_cnt";
+		};
+
+		ep_ucs_control_status_00 {
+			reg = <0x0 0x1002000 0x0 0x1000>;
+			pcie_physical_function = <0x0>;
+			compatible = "xilinx.com,reg_abs-1.0", "ucs_control_status";
+		};
+
+		ep_debug_bscan_user_00 {
+			reg = <0x0 0x1200000 0x0 0x10000>;
+			pcie_physical_function = <0x1>;
+			compatible = "xilinx.com,reg_abs-1.0", "debug_bridge";
+		};
+	};
+};
