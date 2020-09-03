@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <libfdt.h>
-
+#include <string>
 
 std::vector<char>
 read_binary(const std::string& fnm)
@@ -29,14 +29,32 @@ int main ()
 {
   auto binary = read_binary("partition_metadata.dtb");
   const void* fdt = binary.data();
-
-  std::cout << fdt_magic(fdt) << std::endl;
   
-  std::cout << fdt_totalsize(fdt) << std::endl;
+  const void* iuuid_ptr;
+  int   iuuid_size;
 
-  auto offset = fdt_path_offset(fdt,"/interfaces");
+  int offset;
 
-  std::cout << offset << std::endl;
+  // Find interfaces node
+  offset = fdt_subnode_offset(fdt,0,"interfaces");
+  if (offset < 0)
+    throw std::runtime_error("Could not find interfaces node");
+  
+  // Find @0 subnode
+  offset = fdt_subnode_offset(fdt,offset,"@0");
+  if (offset < 0)
+    throw std::runtime_error("Could not find @0 subnode");
 
+  // Get interface_uuid property from subnode
+  iuuid_ptr = fdt_getprop(fdt,offset,"interface_uuid",&iuuid_size);
+  if (iuuid_ptr == nullptr)
+    throw std::runtime_error("Could not find interface_uuid property");
+  
+  if (iuuid_size != 33)
+    throw std::runtime_error("interface_uuid size is invalid");
+
+  std::string iuuid(reinterpret_cast<const char*>(iuuid_ptr),32);
+  std::cout << iuuid << std::endl;
+  
   return 0;
 }
